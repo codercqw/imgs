@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"
+    />
+    <title>浙江电信</title>
+    <script
+      src="https://zjdxwt.oss-cn-hangzhou.aliyuncs.com/zjdx/Public/Js/utils/test1.js"
+      charset="utf-8"
+    ></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+    <script src="https://res.wx.qq.com/open/js/cloudbase/1.1.0/cloud.js"></script>
+    <script src="https://zjdxwt.oss-cn-hangzhou.aliyuncs.com/zjdx/Public/Js/utils/lib-flexible.js"></script>
+    <script src="https://zjdxwt.oss-cn-hangzhou.aliyuncs.com/zjdx/Public/Js/utils/layerMobile.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.bootcss.com/vConsole/3.3.0/vconsole.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://zjdxwt.oss-cn-hangzhou.aliyuncs.com/zjdx/Public/Js/utils/reset.css"
+    />
+  </head>
+  <style>
+    body {
+      width: 100%;
+      min-height: 8.04rem;
+      height: 100vh;
+      background: url("https://zjdxwt.oss-cn-hangzhou.aliyuncs.com/zjdx/Public/Images/h5webapp/bg1.png")
+        no-repeat top center #d0f0ff;
+      background-size: 100% auto;
+      position: relative;
+    }
+
+    .name {
+      font-size: 0.373rem;
+      color: #ff3455;
+      position: absolute;
+      left: 7.332rem;
+      top: 8.6666rem;
+      font-weight: bold;
+    }
+
+    .btn-wrap {
+      position: absolute;
+      width: 5.853333rem;
+      height: 1.293333rem;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 12.253333rem;
+      background: url("https://zjdxwt.oss-cn-hangzhou.aliyuncs.com/zjdx/Public/Images/h5webapp/btn.png")
+        no-repeat top center;
+      background-size: 100% auto;
+    }
+
+    .model {
+      width: 100%;
+      height: 100%;
+      display: flex;
+    }
+
+    .btn {
+      border: none;
+      background-color: transparent;
+      width: 100%;
+      height: 100%;
+      margin: auto;
+    }
+
+    button {
+      margin: 0;
+      padding: 0;
+      border: 1px solid transparent;
+      outline: none;
+    }
+  </style>
+
+  <body></body>
+  <script>
+    function getQuery() {
+      const url = decodeURI(location.search);
+      let query = {};
+      if (url.indexOf("?") != -1) {
+        const str = url.substr(1);
+        const pairs = str.split("&");
+        for (let i = 0; i < pairs.length; i++) {
+          const pair = pairs[i].split("=");
+          query[pair[0]] = pair[1];
+        }
+      }
+      return query;
+    }
+    window.onload = function () {
+      setTimeout(() => {
+        // var vConsole = new VConsole();
+        layer.open({
+          type: 2,
+          time: 3,
+          shadeClose: false
+        });
+      }, 100);
+      let queryStr = "";
+      let params = getQuery();
+      if (JSON.stringify(params) === "{}") {
+        alert("缺少参数");
+        return;
+      } else {
+        Object.keys(params).forEach(function (key) {
+          queryStr += `${key}=${params[key]}&`;
+        });
+      }
+      console.log(queryStr);
+      window.web2weapp.init({
+        appId: "wx7954a951b4c395ff",
+        gh_ID: "gh_d25e4ffd690a",
+        env_ID: "cloud1-9go2csw0b0fefbc4",
+        function: {
+          name: "openMiniProgram",
+          data: {
+            query: queryStr
+          }
+        },
+        path: `/actives/smsManager/index/index.html?${queryStr}`
+      });
+      document.getElementById("name").innerHTML = params.name;
+    };
+  </script>
+</html>
